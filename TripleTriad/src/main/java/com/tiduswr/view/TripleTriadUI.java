@@ -92,6 +92,8 @@ public class TripleTriadUI extends JFrame {
      */
     private final SoundServices soundServices;
 
+    private boolean isPlayerOneTurn = true;
+
     /**
      * Construtor da interface gráfica Triple Triad.
      * <p>
@@ -128,6 +130,7 @@ public class TripleTriadUI extends JFrame {
         glH = (int) (getHeight() * 0.12);
         spW = getWidth();
         spH = (int) (getHeight() * 0.04);
+        
 
         // Inicializa o log de jogadas
         gameLog = new GameLog();
@@ -154,10 +157,15 @@ public class TripleTriadUI extends JFrame {
         p1 = new PlayerCards(this, jose, plW, plH);
         p2 = new PlayerCards(this, maria, plW, plH);
         p2.setCardsActive(false); // Exemplo de como desabilitar a mão de um jogador (pra você ficar mudando os turnos)
+        p2.setCardsActive(true);
+        p1.processAllPlayerCardData((indice,carta) -> {
+            carta.setFlipped(false);
+        });
         p2.processAllPlayerCardData((indice, carta) -> {
-            carta.setFlipped(indice % 2 == 0); // Exemplo de como você pode definir quais cartas vão ficar viradas pra baixo
+            carta.setFlipped(false); 
         });
 
+       
         JPanel scorePanel = new ScorePanel(p1.getPlayer(), p2.getPlayer());
         scorePanel.setPreferredSize(new Dimension(spW, spH)); // Ajusta a altura do painel de pontuação
 
@@ -286,4 +294,23 @@ public class TripleTriadUI extends JFrame {
     public SoundServices getSoundServices() {
         return this.soundServices;
     }
+    public void toggleTurn() { 
+        isPlayerOneTurn = !isPlayerOneTurn;
+        if (isPlayerOneTurn) {
+            p1.setCardsActive(true);
+            p2.setCardsActive(false);
+            getGameLog().addLogMessage("Vez do jogador: " + p1.getPlayer().getName());
+        } else {
+            p1.setCardsActive(false);
+            p2.setCardsActive(true);
+            getGameLog().addLogMessage("Vez do jogador: " + p2.getPlayer().getName());
+        }
+    }
+    
+
+    // Método que você chama toda vez que um jogador realiza sua jogada
+    public void onPlayerMove() {
+        toggleTurn();
+    }
+    
 }
