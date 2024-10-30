@@ -17,7 +17,7 @@ public class Player {
      * Pontos iniciais do jogador.
      * O jogador começa com 5 pontos.
      */
-    private final int points = 5;
+    private int points = 5;
 
     /**
      * Lista de cartas que o jogador possui.

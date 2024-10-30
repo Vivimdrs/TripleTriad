@@ -156,7 +156,7 @@ public class TripleTriadUI extends JFrame {
         Player maria = new Player("Maria", cardsP2, Color.decode("#C96868")); // Jogador 2
         p1 = new PlayerCards(this, jose, plW, plH);
         p2 = new PlayerCards(this, maria, plW, plH);
-        p2.setCardsActive(false); // Exemplo de como desabilitar a mão de um jogador (pra você ficar mudando os turnos)
+        p2.setCardsActive(true); // Exemplo de como desabilitar a mão de um jogador (pra você ficar mudando os turnos)
         p2.setCardsActive(true);
         p1.processAllPlayerCardData((indice,carta) -> {
             carta.setFlipped(false);
@@ -312,5 +312,4 @@ public class TripleTriadUI extends JFrame {
     public void onPlayerMove() {
         toggleTurn();
     }
-    
 }

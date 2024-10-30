@@ -1,10 +1,12 @@
 package com.tiduswr.view;
 
+
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.tiduswr.model.CardData;
+import com.tiduswr.model.Player;
 import com.tiduswr.model.PlayerCardData;
 import com.tiduswr.view.listeners.CardAddedListener;
 import com.tiduswr.view.listeners.PositionListener;
@@ -19,6 +21,9 @@ public class Board extends BackgroundPanel {
      * Matriz de componentes de cartas que representa as posições do tabuleiro.
      */
     private CardComponent[][] boardButtons;
+
+    private Player p1;
+    private Player p2;
     
     /**
      * Lista contendo todas as cartas carregadas do arquivo CSV.
@@ -201,5 +206,15 @@ public class Board extends BackgroundPanel {
      */
     public List<PositionListener> getPositionListeners() {
         return this.positionListeners;
+    }
+    public boolean jogoTerminado() {
+        if ( p1.getPoints()>= 9) {
+            System.out.println("O jogador" +p1.getName()+"ganhou!");
+            return true;
+        } else if (p2.getPoints() >= 9) {
+            System.out.println("O jogador" +p2.getName()+"ganhou!");
+            return true;
+        }
+        return false;
     }
 }
